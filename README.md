@@ -7,8 +7,8 @@
 
 ## Prerequires
 
-1. Git 2.6+
-3. Unity 5+
+1. Git 2.9+
+3. Unity 5.4+
 
 
 ## How to Play
