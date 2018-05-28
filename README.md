@@ -8,7 +8,7 @@
 ## Prerequires
 
 1. Git 2.9+
-3. Unity 5.4+
+3. Unity 2018+
 
 
 ## How to Play
@@ -19,7 +19,7 @@ Clone
 git clone https://github.com/humbertodias/unity-solar-system.git
 ```
 
-On Unity 5, open the project folder: **unity-solar-system**
+On Unity, open the project folder: **unity-solar-system**
 
 
 ## Controls
