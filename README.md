@@ -1,6 +1,8 @@
 # Solar System
 
-3D Solar System with Unity 5.
+3D Solar System with Unity.
+
+![](doc/unity-config.png)
 
 ![Solar-System](doc/solar-system.gif)
 
@@ -8,7 +10,7 @@
 ## Prerequires
 
 1. Git 2.9+
-3. Unity 2018+
+3. Unity 2019.1.0f2+
 
 
 ## How to Play
