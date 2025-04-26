@@ -1,3 +1,5 @@
+[![CD](https://github.com/humbertodias/unity-solar-system/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/humbertodias/unity-solar-system/actions/workflows/gh-pages.yml)
+
 # Solar System
 
 3D Solar System with Unity.
