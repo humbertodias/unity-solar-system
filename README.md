@@ -2,11 +2,13 @@
 
 # Solar System
 
-3D Solar System with Unity.
+3D Solar System with Unity. 
 
 ![](doc/unity-config.png)
 
 ![Solar-System](doc/solar-system.gif)
+
+[Play](https://humbertodias.github.io/unity-solar-system/)
 
 
 ## Prerequires
