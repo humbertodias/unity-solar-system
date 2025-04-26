@@ -1,0 +1,65 @@
+name: CD
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+    environment: Unity build
+    strategy:
+      fail-fast: false
+      matrix:
+        unityVersion:
+          - 6000.0.23f1
+        targetPlatform:
+          - WebGL
+          # - StandaloneWindows
+          # - StandaloneWindows64
+          # - StandaloneLinux64
+          # - StandaloneOSX
+          # - Android
+          # - iOS
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}-
+            Library-
+
+      - name: Build project
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: ${{ matrix.unityVersion }}
+          targetPlatform: ${{ matrix.targetPlatform }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          name: Release ${{ env.TAG_NAME }}
+          body: "Release for ${{ env.TAG_NAME }}"
+          draft: false
+          prerelease: false
+          files: build/${{ matrix.targetPlatform }}/WebGL
