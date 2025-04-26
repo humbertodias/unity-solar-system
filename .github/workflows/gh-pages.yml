@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: ${{ matrix.targetPlatform }}
+    name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
     environment: Unity build
     strategy:
@@ -20,29 +20,31 @@ jobs:
           - 6000.0.23f1
         targetPlatform:
           - WebGL
+          # Uncomment for additional platforms
           # - StandaloneWindows
           # - StandaloneWindows64
           # - StandaloneLinux64
           # - StandaloneOSX
           # - Android
           # - iOS
-    steps:
 
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           lfs: true
 
-      - uses: actions/cache@v4
+      - name: Cache Unity Library
+        uses: actions/cache@v4
         with:
           path: Library
-          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          key: Unity-${{ runner.os }}-Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
-            Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}-
-            Library-
+            Unity-${{ runner.os }}-Library-
+            Unity-Library-
 
-      - name: Build project
+      - name: Build Unity project
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -51,6 +53,9 @@ jobs:
         with:
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
+
+      - name: Set TAG_NAME
+        run: echo "TAG_NAME=${GITHUB_REF_NAME}" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
