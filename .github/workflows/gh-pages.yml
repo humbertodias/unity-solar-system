@@ -67,4 +67,4 @@ jobs:
           body: "Release for ${{ env.TAG_NAME }}"
           draft: false
           prerelease: false
-          files: build/${{ matrix.targetPlatform }}/WebGL
+          files: build/${{ matrix.targetPlatform }}/WebGL/**/*
