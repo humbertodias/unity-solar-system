@@ -10,14 +10,14 @@
 ## Prerequires
 
 1. Git 2.9+
-3. Unity 2019.1.0f2+
+3. Unity 6+
 
 
 ## How to Play
 
 Clone
 
-```
+```shell
 git clone https://github.com/humbertodias/unity-solar-system.git
 ```
 
